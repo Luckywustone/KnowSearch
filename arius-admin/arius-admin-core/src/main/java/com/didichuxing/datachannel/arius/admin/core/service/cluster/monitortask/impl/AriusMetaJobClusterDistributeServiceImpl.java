@@ -41,6 +41,11 @@ public class AriusMetaJobClusterDistributeServiceImpl implements AriusMetaJobClu
     @Autowired
     private AriusMetaJobClusterDistributeDAO ariusMetaJobClusterDistributeDAO;
 
+     /**
+     * 获取单台机器监控采集的集群名称列表, 当分布式部署分组采集，可分摊采集压力
+     * @param monitorHost            采集机器名称
+     * @return List<ClusterPhy>      采集集群列表
+     */
     @Override
     public List<ClusterPhy> getSingleMachineMonitorCluster(String monitorHost) {
         List<ClusterPhy> monitorCluster = Lists.newArrayList();
@@ -72,6 +77,12 @@ public class AriusMetaJobClusterDistributeServiceImpl implements AriusMetaJobClu
         return monitorCluster;
     }
 
+     /**
+     * 根据host获取监控采集的集群名称列表
+     * @param monitorHost 采集机器名称
+     * @param size 采集个数
+     * @return 监控的集群信息
+     */
     @Override
     public List<AriusMetaJobClusterDistribute> getTaskByHost(String monitorHost, int size) {
         return ConvertUtil.list2List(ariusMetaJobClusterDistributeDAO.getTaskByHost(monitorHost, size),
